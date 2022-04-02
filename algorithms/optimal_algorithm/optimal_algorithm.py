@@ -4,7 +4,7 @@ from ..iheavy_hitters_algorithm import IHeavyHittersAlgorithm
 from ..message import Message
 
 
-class OptimalAlgorithm(IHeavyHittersAlgorithm, ABC):
+class OptimalAlgorithm(IHeavyHittersAlgorithm):
 
     def __init__(self):
         self._dict = {}
@@ -17,3 +17,8 @@ class OptimalAlgorithm(IHeavyHittersAlgorithm, ABC):
 
     def get_counters(self):
         return self._dict
+
+    def print_result(self):
+        for key in self._dict:
+            txt = "key: {}, value: {}".format(key, self._dict[key])
+            print(txt)

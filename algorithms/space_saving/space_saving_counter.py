@@ -21,3 +21,6 @@ class SpaceSavingCounter:
         self._over_estimation += self._approximated_frequency
         self._approximated_frequency = 0
 
+    def counter_summary(self):
+        return "key: {}, approx_freq: {}, over-estimation: {}, count: {}".format(self._key, self._approximated_frequency, self._over_estimation, self.get_count())
+

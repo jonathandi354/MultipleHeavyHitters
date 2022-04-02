@@ -6,7 +6,7 @@ from ..message import Message
 from .limited_size_dict import LimitedSizeDict
 
 
-class SpaceSavingAlgorithm(IHeavyHittersAlgorithm, ABC):
+class SpaceSavingAlgorithm(IHeavyHittersAlgorithm):
     def __init__(self, counters_number: int):
         self._counters_number = counters_number
         self._counters_dict = LimitedSizeDict(counters_number)
@@ -35,3 +35,7 @@ class SpaceSavingAlgorithm(IHeavyHittersAlgorithm, ABC):
 
     def get_counters(self):
         return self._counters_dict
+
+    def print_result(self):
+        for key in self._counters_dict:
+            print(self._counters_dict[key].counter_summary())

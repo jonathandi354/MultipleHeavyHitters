@@ -8,8 +8,16 @@ class DataGenerator:
     def __init__(self, keys_number, stream_size):
         self._keys_number = keys_number
         self._stream_size = stream_size
-        self._keys = [k for i, k in enumerate(ascii_lowercase) if i < self._keys_number]
+        self._keys = self._generate_keys()
         self._stream = []
+
+    def _generate_keys(self):
+        keys = []
+        key_len = 5
+        for i in range(self._keys_number):
+            random_str = ''.join(random.choice(ascii_lowercase) for j in range(key_len))
+            keys.append(random_str)
+        return keys
 
     def generate_stream(self) -> list:
         for i in range(self._stream_size):
@@ -30,3 +38,7 @@ class DataGenerator:
             keys_to_remove.append(self._keys[random_index])
         self._stream = [m for m in self._stream if (m._key not in keys_to_remove)]
         return self._stream, keys_to_remove
+
+    @property
+    def keys(self):
+        return self._keys
