@@ -2,6 +2,7 @@ import random
 from string import ascii_lowercase
 from algorithms.message import Message
 
+
 class DataGenerator:
 
     def __init__(self, keys_number, stream_size):
@@ -15,7 +16,7 @@ class DataGenerator:
             self._stream.append(Message(self._keys[random.randint(0, self._keys_number - 1)]))
         return self._stream
 
-    def remove_random_keys(self, number_of_keys_to_remove) -> list:
+    def remove_random_keys(self, number_of_keys_to_remove):
         if number_of_keys_to_remove >= self._keys_number:
             raise Exception("too many keys to remove!!!")
         keys_to_remove = []
@@ -28,4 +29,4 @@ class DataGenerator:
             prev_indexes.append(random_index)
             keys_to_remove.append(self._keys[random_index])
         self._stream = [m for m in self._stream if (m._key not in keys_to_remove)]
-        return self._stream
+        return self._stream, keys_to_remove

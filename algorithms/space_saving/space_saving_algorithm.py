@@ -12,14 +12,14 @@ class SpaceSavingAlgorithm(IHeavyHittersAlgorithm, ABC):
         self._counters_dict = LimitedSizeDict(counters_number)
 
     def process_message(self, message: Message):
-        key = message._key
+        key = message.key
         if key in self._counters_dict.keys():
             self._counters_dict[key].increment()
         else:
             try:
                 self._counters_dict[key] = SpaceSavingCounter(key)
                 self._counters_dict[key].increment()
-            except:
+            except Exception:
                 min_key = self._find_min_counter_key()
                 self._counters_dict[min_key].key = key
                 self._counters_dict[key] = self._counters_dict.pop(min_key)
@@ -32,3 +32,6 @@ class SpaceSavingAlgorithm(IHeavyHittersAlgorithm, ABC):
 
     def clear(self):
         self._counters_dict = LimitedSizeDict(self._counters_number)
+
+    def get_counters(self):
+        return self._counters_dict

@@ -1,6 +1,7 @@
 from abc import ABCMeta, abstractmethod
 from .message import Message
 
+
 class IHeavyHittersAlgorithm:
     __metaclass__ = ABCMeta
 
@@ -10,6 +11,4 @@ class IHeavyHittersAlgorithm:
 
     @abstractmethod
     def get_counters(self):
-        raise  NotImplementedError
-
-
+        raise NotImplementedError
