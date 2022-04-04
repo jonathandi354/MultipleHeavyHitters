@@ -18,4 +18,7 @@ class AlgorithmNode(Node):
         if self.parent is not None:
             self.parent.process_message(message)
 
+    def get_top_k_keys(self, k):
+        return self._algorithm.get_top_k_keys(k)
+
 

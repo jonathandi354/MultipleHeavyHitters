@@ -7,6 +7,18 @@ from tree_of_switches.keys_distibutor.equally_level_distributor import EquallyLe
 from tree_of_switches.nodes.algorithm_node import AlgorithmNode
 from tree_of_switches.nodes.node_factory import NodeFactory
 
+
+def compare_node_top_k_and_optimal_top_k(k, optimal, node):
+    optimal_top_k = optimal.get_top_k_keys(k)
+    node_algorithm_top_k = node.get_top_k_keys(k)
+    count = 0
+    for optimal_top_key in optimal_top_k:
+        if optimal_top_key not in node_algorithm_top_k:
+            count += 1
+    txt = "node: {} there are {} keys in top-{} optimal but not in top-{} algorithm".format(node.index, count, k, k)
+    print(txt)
+
+
 if __name__ == "__main__":
 
     node_factory = NodeFactory(AlgorithmNode)
@@ -30,7 +42,10 @@ if __name__ == "__main__":
 
     optimal.print_result()
 
-def compare_space_saving_to_optimal():
-    pass
-
+    for node in binaryTree.nodes:
+        optimal_for_level = OptimalAlgorithm()
+        for m in stream:
+            if m.key in node.keys:
+                optimal.process_message(m)
+        compare_node_top_k_and_optimal_top_k(7, optimal, node)
 

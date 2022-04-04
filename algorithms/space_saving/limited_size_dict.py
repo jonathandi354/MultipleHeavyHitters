@@ -2,8 +2,7 @@
 from collections.abc import MutableMapping
 
 
-def _key_transform(key):
-    return key
+
 
 
 class LimitedSizeDict(MutableMapping):
@@ -13,16 +12,19 @@ class LimitedSizeDict(MutableMapping):
         self._store = dict()
 
     def __getitem__(self, key):
-        return self._store[_key_transform(key)]
+        return self._store[self._key_transform(key)]
 
     def __setitem__(self, key, value):
         if len(self._store) == self._dict_size:
             raise Exception("Dictionary is full")
         else:
-            self._store[_key_transform(key)] = value
+            self._store[self._key_transform(key)] = value
 
     def __delitem__(self, key):
-        del self._store[_key_transform(key)]
+        del self._store[self._key_transform(key)]
+
+    def _key_transform(self, key):
+        return key
 
     def __iter__(self):
         return iter(self._store)

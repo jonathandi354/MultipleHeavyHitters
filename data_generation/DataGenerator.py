@@ -15,7 +15,7 @@ class DataGenerator:
         keys = []
         key_len = 5
         for i in range(self._keys_number):
-            random_str = ''.join(random.choice(ascii_lowercase) for j in range(key_len))
+            random_str = ''.join(random.choice(ascii_lowercase) for _ in range(key_len))
             keys.append(random_str)
         return keys
 

@@ -33,9 +33,23 @@ class SpaceSavingAlgorithm(IHeavyHittersAlgorithm):
     def clear(self):
         self._counters_dict = LimitedSizeDict(self._counters_number)
 
-    def get_counters(self):
-        return self._counters_dict
-
     def print_result(self):
         for key in self._counters_dict:
             print(self._counters_dict[key].counter_summary())
+
+    def _sort_counters(self):
+        self._counters_dict = {k: v for k, v in
+                               sorted(self._counters_dict.items(), key=lambda item: item[1].get_count(), reverse=True)}
+
+    def get_top_k_keys(self, k):
+        self._sort_counters()
+        top_k = {}
+        i = 0
+        for key, value in self._counters_dict.items():
+            if i == k:
+                return top_k
+            top_k[key] = value.get_count()
+            i += 1
+        return top_k
+
+

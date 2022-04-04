@@ -1,5 +1,4 @@
-from tree_of_switches.nodes.algorithm_node import AlgorithmNode
-from tree_of_switches.nodes.node import Node
+
 
 
 def _check_if_size_valid(size):
