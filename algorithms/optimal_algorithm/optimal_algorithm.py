@@ -16,8 +16,9 @@ class OptimalAlgorithm(IHeavyHittersAlgorithm, ABC):
         self._dictionary[key] += 1
 
     @property
-    def _dictionary(self) -> dict:
+    def dictionary(self) -> dict:
         return self._dictionary
+
 
     def print_result(self):
         for key in self._dictionary:
@@ -38,3 +39,6 @@ class OptimalAlgorithm(IHeavyHittersAlgorithm, ABC):
             top_k[key] = value
             i += 1
         return top_k
+
+
+
