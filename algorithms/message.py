@@ -8,5 +8,5 @@ class Message:
         self._id = uuid.uuid4()
 
     @property
-    def key(self):
+    def key(self) -> str:
         return self._key
