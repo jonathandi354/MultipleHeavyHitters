@@ -1,0 +1,7 @@
+{
+  "number_of_nodes_in_tree" : 7,
+  "number_of_keys_in_stream": 66,
+  "stream_size": 1000,
+  "number_of_levels_in_tree": 3,
+  "number_of_counters_in_space_saving": 15
+}
