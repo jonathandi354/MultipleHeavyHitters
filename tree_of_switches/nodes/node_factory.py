@@ -11,4 +11,4 @@ class NodeFactory:
         if self._node_type == DumbNode:
             return DumbNode()
         if self._node_type == AlgorithmNode:
-            return AlgorithmNode(SpaceSavingAlgorithm(10))
+            return AlgorithmNode(SpaceSavingAlgorithm(15))

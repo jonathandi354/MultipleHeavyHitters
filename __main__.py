@@ -15,37 +15,34 @@ def compare_node_top_k_and_optimal_top_k(k, optimal, node):
     for optimal_top_key in optimal_top_k:
         if optimal_top_key not in node_algorithm_top_k:
             count += 1
-    txt = "node: {} there are {} keys in top-{} optimal but not in top-{} algorithm".format(node.index, count, k, k)
+    txt = "node: {} there are {} keys in top - {} optimal but not in top - {} algorithm".format(node.index, count, k, k)
     print(txt)
 
 
 if __name__ == "__main__":
 
-    node_factory = NodeFactory(AlgorithmNode)
-    binaryTree = BinaryTree(7, node_factory)
+    node_factory = NodeFactory(node_type=AlgorithmNode)
+    binaryTree = BinaryTree(size=7, node_factory=node_factory)
     leaves = binaryTree.get_leaves()
-    dataGenerator = DataGenerator(33, 500)
+    dataGenerator = DataGenerator(keys_number=66, stream_size=10000)
     stream = dataGenerator.generate_stream()
 
-    key_distributor = EquallyLevelDistributor(dataGenerator.keys, binaryTree.nodes, 3)
+    key_distributor = EquallyLevelDistributor(keys=dataGenerator.keys, nodes=binaryTree.nodes, number_of_levels=3)
     key_distributor.distribute_keys()
-    for i in range(500):
+
+    for i in range(1000):
         random_leaf = random.randint(0, 3)
         leaves[random_leaf].process_message(stream[i])
-    for node in binaryTree.nodes:
-        print("node:", node.index)
-        node._algorithm.print_result()
 
-    optimal = OptimalAlgorithm()
-    for m in stream:
-        optimal.process_message(m)
+    for leaf in leaves:
+        leaf.print_num_message_passed()
 
-    optimal.print_result()
+    for leaf in leaves:
+        leaf.print_num_message_matched()
 
     for node in binaryTree.nodes:
         optimal_for_level = OptimalAlgorithm()
         for m in stream:
             if m.key in node.keys:
-                optimal.process_message(m)
-        compare_node_top_k_and_optimal_top_k(7, optimal, node)
-
+                optimal_for_level.process_message(m)
+        compare_node_top_k_and_optimal_top_k(7, optimal_for_level, node)

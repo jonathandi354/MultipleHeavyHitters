@@ -10,9 +10,13 @@ class AlgorithmNode(Node):
         self._optimal = OptimalAlgorithm()
         self.keys = []
         self._number_of_messages_in = 0
+        self._num_message_passed = 0
+        self._num_message_matched = 0
 
     def process_message(self, message):
+        self._num_message_passed += 1
         if message.key in self.keys:
+            self._num_message_matched += 1
             self._algorithm.process_message(message)
             self._optimal.process_message(message)
 
@@ -21,5 +25,13 @@ class AlgorithmNode(Node):
 
     def get_top_k_keys(self, k):
         return self._algorithm.get_top_k_keys(k)
+
+    def print_num_message_passed(self):
+        txt = "number of message passed: {}, in index: {}".format(self._num_message_passed, self.index)
+        print(txt)
+
+    def print_num_message_matched(self):
+        txt = "number of message matched: {}, in index: {}".format(self._num_message_matched, self.index)
+        print(txt)
 
 
