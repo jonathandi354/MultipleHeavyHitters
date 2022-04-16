@@ -1,5 +1,10 @@
 from collections.abc import MutableMapping
 
+'''
+Dictionary with a limited size. If the current size equals the limit size, when trying to add another
+element, the method will throw an Exception.
+'''
+
 
 class LimitedSizeDict(MutableMapping):
 

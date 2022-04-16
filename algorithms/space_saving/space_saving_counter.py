@@ -15,6 +15,10 @@ class SpaceSavingCounter:
     def key(self) -> str:
         return self._key()
 
+    '''
+    Sets a new key to the counter.
+    Sums the current over-estimation with the approximated frequency and reset the approximated frequency.
+    '''
     @key.setter
     def key(self, new_key):
         self._key = new_key

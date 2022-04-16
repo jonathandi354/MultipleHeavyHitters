@@ -11,6 +11,10 @@ class SpaceSavingAlgorithm(IHeavyHittersAlgorithm, ABC):
         self._counters_number = counters_number
         self._counters_dict = LimitedSizeDict(counters_number)
 
+    '''
+    If the key exists in the counters dict - just increase the corresponding counter.
+    If not, find the minimum counter and replace it with a new counter with the new key.
+    '''
     def process_message(self, message: Message):
         key = message.key
         if key in self._counters_dict.keys():
@@ -25,6 +29,9 @@ class SpaceSavingAlgorithm(IHeavyHittersAlgorithm, ABC):
                 self._counters_dict[key] = self._counters_dict.pop(min_key)
                 self._counters_dict[key].increment()
 
+    '''
+    Finds the key of the minimum counter.
+    '''
     def _find_min_counter_key(self) -> str:
         min_counter = min(self._counters_dict.values(), key=lambda counter: counter.get_count())
         min_key = list(filter(lambda key: self._counters_dict[key] == min_counter, self._counters_dict))[0]
@@ -37,6 +44,9 @@ class SpaceSavingAlgorithm(IHeavyHittersAlgorithm, ABC):
         for key in self._counters_dict:
             print(self._counters_dict[key].counter_summary())
 
+    '''
+    Sorts the counters according to their counts
+    '''
     def _sort_counters(self):
         self._counters_dict = {k: v for k, v in
                                sorted(self._counters_dict.items(), key=lambda item: item[1].get_count(), reverse=True)}
