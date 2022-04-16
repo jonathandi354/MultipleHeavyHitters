@@ -9,6 +9,7 @@ class AlgorithmNode(Node):
         self._algorithm = algorithm
         self._optimal = OptimalAlgorithm()
         self.keys = []
+        self._number_of_messages_in = 0
 
     def process_message(self, message):
         if message.key in self.keys:
