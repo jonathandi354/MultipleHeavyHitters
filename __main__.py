@@ -1,7 +1,8 @@
 import random
 import json
 from algorithms.optimal_algorithm.optimal_algorithm import OptimalAlgorithm
-from data_generation.DataGenerator import DataGenerator
+from data_generation.UnevenDataGenerator import UnevenDataGenerator
+from data_generation.UniformDataGenerator import UniformDataGenerator
 from tree_of_switches.binary_tree import BinaryTree
 from tree_of_switches.keys_distibutor.equally_level_distributor import EquallyLevelDistributor
 from tree_of_switches.nodes.algorithm_node import AlgorithmNode
@@ -18,6 +19,7 @@ def compare_node_top_k_and_optimal_top_k(k, optimal, node):
     txt = "node: {} there are {} keys in top - {} optimal but not in top - {} algorithm".format(node.index, count, k, k)
     print(txt)
 
+
 def read_configuration():
     f = open('../configuration/config.json')
     config = json.load(f)
@@ -30,10 +32,13 @@ if __name__ == "__main__":
     node_factory = NodeFactory(node_type=AlgorithmNode)
     binaryTree = BinaryTree(size=config['number_of_nodes_in_tree'], node_factory=node_factory)
     leaves = binaryTree.get_leaves()
-    dataGenerator = DataGenerator(keys_number=config['number_of_keys_in_stream'], stream_size=config['stream_size'])
+    # dataGenerator = UniformDataGenerator(keys_number=config['number_of_keys_in_stream'], stream_size=config['stream_size'])
+    dataGenerator = UnevenDataGenerator(keys_number=config['number_of_keys_in_stream'],
+                                        stream_size=config['stream_size'], probabilities=[0.5, 0.05, 0.05, 0.2, 0.1, 0.1])
     stream = dataGenerator.generate_stream()
 
-    key_distributor = EquallyLevelDistributor(keys=dataGenerator.keys, nodes=binaryTree.nodes, number_of_levels=config['number_of_levels_in_tree'])
+    key_distributor = EquallyLevelDistributor(keys=dataGenerator.keys, nodes=binaryTree.nodes,
+                                              number_of_levels=config['number_of_levels_in_tree'])
     key_distributor.distribute_keys()
 
     for i in range(1000):
